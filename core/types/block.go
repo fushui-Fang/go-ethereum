@@ -68,21 +68,21 @@ func (n *BlockNonce) UnmarshalText(input []byte) error {
 
 // Header represents a block header in the Ethereum blockchain.
 type Header struct {
-	ParentHash  common.Hash    `json:"parentHash"       gencodec:"required"`
-	UncleHash   common.Hash    `json:"sha3Uncles"       gencodec:"required"`
-	Coinbase    common.Address `json:"miner"            gencodec:"required"`
-	Root        common.Hash    `json:"stateRoot"        gencodec:"required"`
-	TxHash      common.Hash    `json:"transactionsRoot" gencodec:"required"`
-	ReceiptHash common.Hash    `json:"receiptsRoot"     gencodec:"required"`
-	Bloom       Bloom          `json:"logsBloom"        gencodec:"required"`
-	Difficulty  *big.Int       `json:"difficulty"       gencodec:"required"`
-	Number      *big.Int       `json:"number"           gencodec:"required"`
-	GasLimit    uint64         `json:"gasLimit"         gencodec:"required"`
-	GasUsed     uint64         `json:"gasUsed"          gencodec:"required"`
-	Time        *big.Int       `json:"timestamp"        gencodec:"required"`
+	ParentHash  common.Hash    `json:"parentHash"       gencodec:"required"`        // 指向父区块
+	UncleHash   common.Hash    `json:"sha3Uncles"       gencodec:"required"`	// Header数组？？？
+	Coinbase    common.Address `json:"miner"            gencodec:"required"`	// 矿工地址
+	Root        common.Hash    `json:"stateRoot"        gencodec:"required"`	// StateDB 中的“state Trie”的根节点的哈希值--账户Trie???
+	TxHash      common.Hash    `json:"transactionsRoot" gencodec:"required"`        // Block 中 “tx Trie”的根节点的哈希值--tx Trie???
+	ReceiptHash common.Hash    `json:"receiptsRoot"     gencodec:"required"`	// Block 中的 “Receipt Trie”的根节点的哈希值-- tx执行结果 Trie
+	Bloom       Bloom          `json:"logsBloom"        gencodec:"required"`	//用来快速判断一个参数 Log 对象是否存在于一组已知的 Log 集合中????
+	Difficulty  *big.Int       `json:"difficulty"       gencodec:"required"`	//区块的难度。
+	Number      *big.Int       `json:"number"           gencodec:"required"`	//区块的序号。
+	GasLimit    uint64         `json:"gasLimit"         gencodec:"required"`	//区块内所有 Gas 消耗的理论上限。	
+	GasUsed     uint64         `json:"gasUsed"          gencodec:"required"`	//区块内所有 Transaction 执行时所实际消耗的 Gas 总和
+	Time        *big.Int       `json:"timestamp"        gencodec:"required"`	//区块“应该”被创建的时间。???
 	Extra       []byte         `json:"extraData"        gencodec:"required"`
 	MixDigest   common.Hash    `json:"mixHash"          gencodec:"required"`
-	Nonce       BlockNonce     `json:"nonce"            gencodec:"required"`
+	Nonce       BlockNonce     `json:"nonce"            gencodec:"required"`	//一个 64bit 的哈希数，用于“挖矿”。
 }
 
 // field type overrides for gencodec
