@@ -108,6 +108,7 @@ func blockReceiptsKey(number uint64, hash common.Hash) []byte {
 	return append(append(blockReceiptsPrefix, encodeBlockNumber(number)...), hash.Bytes()...)
 }
 
+//这个...是go的语法，在append两个都是slice的时候使用，意为把后一个拆分为单独元素的集合，加入到前一个中
 // txLookupKey = txLookupPrefix + hash
 func txLookupKey(hash common.Hash) []byte {
 	return append(txLookupPrefix, hash.Bytes()...)
